@@ -1,96 +1,110 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <title>日記</title>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <script>
-    tailwind.config = {
-      plugins: [window.tailwindcssLineClamp],
-    };
-  </script>
-</head>
-<body class="bg-gray-100 min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <title>日記</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+      tailwind.config = {
+        plugins: [window.tailwindcssLineClamp],
+      };
+    </script>
+  </head>
+  <body class="bg-gray-100 min-h-screen">
 
-  <div x-data="{ open: false }" @keydown.window.escape="open = false" class="relative">
+    <div x-data="{ open: false }" @keydown.window.escape="open = false" class="relative">
 
-    <!-- サイドパネル -->
-    <div
-      class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 transform transition-transform duration-300"
-      :class="{ '-translate-x-full': !open, 'translate-x-0': open }"
-    >
-      <div class="p-4 flex justify-between items-center border-b">
-        <h2 class="text-lg font-semibold">サイドパネル</h2>
-        <button @click="open = false" class="text-gray-500 hover:text-gray-800">&times;</button>
-      </div>
-      <div class="p-4">
-        <p>ここにメニューや設定などを追加できます。</p>
-      </div>
-    </div>
+      <!-- サイドパネル -->
+      <div
+          class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 transform transition-transform duration-300"
+          :class="{ '-translate-x-full': !open, 'translate-x-0': open }"
+          >
+          <div class="p-4 flex justify-between items-center border-b">
+            <h2 class="text-lg font-semibold">サイドパネル</h2>
+            <button @click="open = false" class="text-gray-500 hover:text-gray-800">&times;</button>
+          </div>
+          <div class="p-4">
+            <!-- サイドパネル内：選択された日記の詳細表示 -->
+            <div class="h-full flex flex-col overflow-hidden">
+              <div class="flex items-center mb-2">
+                <span class="text-3xl mr-2">🌄</span>
+                <h2 class="text-xl font-bold text-gray-800 truncate">山登りの記録</h2>
+              </div>
+              <p class="text-sm text-gray-500 mb-4">2025年5月20日</p>
 
-    <!-- オーバーレイ -->
-    <div 
-      x-show="open"
-      x-transition.opacity
-      class="fixed inset-0 bg-black/50 z-40"
-      @click="open = false"
-    ></div>
-
-    <!-- メインコンテンツ -->
-    <div :class="open ? 'ml-64' : 'ml-0'" class="transition-all duration-300">
-      <!-- トリガーボタン -->
-      <button @click="open = true" class="m-4 px-4 py-2 bg-blue-600 text-white rounded">
-        パネルを開く
-      </button>
-
-      <main class="p-6">
-        <h1 class="text-2xl font-bold mb-6">📘 日記一覧</h1>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- カード1 -->
-          <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
-            <div class="flex items-center mb-2">
-              <span class="text-3xl mr-2">🌞</span>
-              <h2 class="text-xl font-semibold truncate">朝の散歩</h2>
+              <div class="flex-1 overflow-y-auto pr-1 text-sm text-gray-700 space-y-2">
+                <p>今日は友人と一緒に高尾山へハイキングに行った。朝早く出発して、登山口に着いた時にはまだ涼しく、とても歩きやすい天気だった。</p>
+                <p>途中の展望台では、東京の街並みを一望できる絶景が広がっており、思わず写真を何枚も撮ってしまった。途中で見つけた野草や鳥の鳴き声にも癒された。</p>
+                <p>山頂に着いた頃には少し疲れていたけど、持ってきたおにぎりを食べながらのんびり過ごす時間が本当に最高だった。</p>
+                <p>また季節が変わったら来てみたい。今度は秋の紅葉の時期に来てみたいと思う。</p>
+              </div>
             </div>
-            <p class="text-sm text-gray-500 mb-1">2025年5月25日</p>
-            <p class="text-gray-700 line-clamp-3">
+          </div>
+      </div>
+
+      <!-- オーバーレイ -->
+      <div
+                   x-show="open"
+                   x-transition.opacity
+                   class="fixed inset-0 bg-black/50 z-40"
+                   @click="open = false"
+                   ></div>
+
+      <!-- メインコンテンツ -->
+      <div :class="open ? 'ml-64' : 'ml-0'" class="transition-all duration-300">
+        <!-- トリガーボタン -->
+        <button @click="open = true" class="m-4 px-4 py-2 bg-blue-600 text-white rounded">
+          パネルを開く
+        </button>
+
+        <main class="p-6">
+          <h1 class="text-2xl font-bold mb-6">📘 日記一覧</h1>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- カード1 -->
+            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
+              <div class="flex items-center mb-2">
+                <span class="text-3xl mr-2">🌞</span>
+                <h2 class="text-xl font-semibold truncate">朝の散歩</h2>
+              </div>
+              <p class="text-sm text-gray-500 mb-1">2025年5月25日</p>
+              <p class="text-gray-700 line-clamp-3">
               今朝は早起きして公園まで散歩に出かけた。空気が澄んでいて気持ちがよく、鳥の声が心地よかった。
-            </p>
-          </div>
-
-          <!-- カード2 -->
-          <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
-            <div class="flex items-center mb-2">
-              <span class="text-3xl mr-2">📚</span>
-              <h2 class="text-xl font-semibold truncate">読書の時間</h2>
+              </p>
             </div>
-            <p class="text-sm text-gray-500 mb-1">2025年5月24日</p>
-            <p class="text-gray-700 line-clamp-3">
+
+            <!-- カード2 -->
+            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
+              <div class="flex items-center mb-2">
+                <span class="text-3xl mr-2">📚</span>
+                <h2 class="text-xl font-semibold truncate">読書の時間</h2>
+              </div>
+              <p class="text-sm text-gray-500 mb-1">2025年5月24日</p>
+              <p class="text-gray-700 line-clamp-3">
               最近読み始めた小説が面白くて、ついつい夜更かししてしまった。登場人物の心理描写がとても細かくて共感できる。
-            </p>
-          </div>
-
-          <!-- カード3 -->
-          <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
-            <div class="flex items-center mb-2">
-              <span class="text-3xl mr-2">🍽️</span>
-              <h2 class="text-xl font-semibold truncate">夕食の記録</h2>
+              </p>
             </div>
-            <p class="text-sm text-gray-500 mb-1">2025年5月23日</p>
-            <p class="text-gray-700 line-clamp-3">
+
+            <!-- カード3 -->
+            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
+              <div class="flex items-center mb-2">
+                <span class="text-3xl mr-2">🍽️</span>
+                <h2 class="text-xl font-semibold truncate">夕食の記録</h2>
+              </div>
+              <p class="text-sm text-gray-500 mb-1">2025年5月23日</p>
+              <p class="text-gray-700 line-clamp-3">
               今日は自炊に挑戦して、久しぶりにカレーを作ってみた。思ったよりもスパイスが効いていて、家族にも好評だった。
-            </p>
+              </p>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
-  </div>
 
-  <!-- Tailwind Line Clamp Plugin (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/line-clamp@0.4.0"></script>
+    <!-- Tailwind Line Clamp Plugin (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/line-clamp@0.4.0"></script>
 
-</body>
+  </body>
 </html>
 
