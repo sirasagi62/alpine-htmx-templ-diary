@@ -3,3 +3,22 @@ package main
 templ hello(name string) {
 	<div>Hello, { name }</div>
 }
+
+templ diaryCard(emoji string,title string,content string,date string) {
+	<div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
+		<div class="flex items-center mb-2">
+		<span class="text-3xl mr-2">{emoji}</span>
+		<h2 class="text-xl font-semibold truncate">{title}</h2>
+		</div>
+		<p class="text-sm text-gray-500 mb-1">{date}</p>
+		<p class="text-gray-700 line-clamp-3">
+			{content}
+		</p>
+	</div>
+}
+
+templ diaryCardList(diaries DiaryEntries) {
+	for _,diary := range diaries {
+		@diaryCard(diary.Emoji,diary.Title,diary.Content,diary.Date)
+	}
+}
