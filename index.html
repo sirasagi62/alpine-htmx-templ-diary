@@ -5,6 +5,7 @@
     <title>日記</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
     <script>
       tailwind.config = {
         plugins: [window.tailwindcssLineClamp],
@@ -24,7 +25,7 @@
             <h2 class="text-lg font-semibold">サイドパネル</h2>
             <button @click="open = false" class="text-gray-500 hover:text-gray-800">&times;</button>
           </div>
-          <div class="p-4">
+          <div class="p-4" id="detail-panel">
             <!-- サイドパネル内：選択された日記の詳細表示 -->
             <div class="h-full flex flex-col overflow-hidden">
               <div class="flex items-center mb-2">
@@ -44,13 +45,13 @@
       </div>
 
       <!-- オーバーレイ -->
-      <div
+      <!--<div
                    x-show="open"
                    x-transition.opacity
                    class="fixed inset-0 bg-black/50 z-40"
                    @click="open = false"
                    ></div>
-
+      -->
       <!-- メインコンテンツ -->
       <div :class="open ? 'ml-64' : 'ml-0'" class="transition-all duration-300">
         <!-- トリガーボタン -->
@@ -61,7 +62,11 @@
         <main class="p-6">
           <h1 class="text-2xl font-bold mb-6">📘 日記一覧</h1>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            hx-trigger="load"
+            hx-get="/view/list"
+            hx-swap="innerHTML"
+          >
             <!-- カード1 -->
             <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
               <div class="flex items-center mb-2">

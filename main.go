@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 // example関数はHTML文字列を返す
@@ -65,6 +66,28 @@ func main() {
 			return
 		}
 		diaryCardList(diaries).Render(r.Context(), w)
+	})
+
+	http.HandleFunc("/view/item", func(w http.ResponseWriter, r *http.Request) {
+		idx_str := r.URL.Query().Get("idx")
+		if idx_str == "" {
+			idx_str = "0"
+		}
+		idx, _ := strconv.Atoi(idx_str)
+
+		diaries, err := LoadDiaryEntries("diary.json")
+		if err != nil {
+			http.Error(w, "Can't load diary.json", http.StatusInternalServerError)
+			return
+		}
+
+		if idx >= len(diaries) {
+			http.Error(w, "The entry is not found.", http.StatusNotFound)
+			return
+		}
+
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		diaryDetail(diaries[idx]).Render(r.Context(), w)
 	})
 
 	// "/"および"/index.html"に対応
