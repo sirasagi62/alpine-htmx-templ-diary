@@ -26,21 +26,6 @@
             <button @click="open = false" class="text-gray-500 hover:text-gray-800">&times;</button>
           </div>
           <div class="p-4" id="detail-panel">
-            <!-- サイドパネル内：選択された日記の詳細表示 -->
-            <div class="h-full flex flex-col overflow-hidden">
-              <div class="flex items-center mb-2">
-                <span class="text-3xl mr-2">🌄</span>
-                <h2 class="text-xl font-bold text-gray-800 truncate">山登りの記録</h2>
-              </div>
-              <p class="text-sm text-gray-500 mb-4">2025年5月20日</p>
-
-              <div class="flex-1 overflow-y-auto pr-1 text-sm text-gray-700 space-y-2">
-                <p>今日は友人と一緒に高尾山へハイキングに行った。朝早く出発して、登山口に着いた時にはまだ涼しく、とても歩きやすい天気だった。</p>
-                <p>途中の展望台では、東京の街並みを一望できる絶景が広がっており、思わず写真を何枚も撮ってしまった。途中で見つけた野草や鳥の鳴き声にも癒された。</p>
-                <p>山頂に着いた頃には少し疲れていたけど、持ってきたおにぎりを食べながらのんびり過ごす時間が本当に最高だった。</p>
-                <p>また季節が変わったら来てみたい。今度は秋の紅葉の時期に来てみたいと思う。</p>
-              </div>
-            </div>
           </div>
       </div>
 
@@ -67,46 +52,12 @@
             hx-get="/view/list"
             hx-swap="innerHTML"
           >
-            <!-- カード1 -->
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
-              <div class="flex items-center mb-2">
-                <span class="text-3xl mr-2">🌞</span>
-                <h2 class="text-xl font-semibold truncate">朝の散歩</h2>
-              </div>
-              <p class="text-sm text-gray-500 mb-1">2025年5月25日</p>
-              <p class="text-gray-700 line-clamp-3">
-              今朝は早起きして公園まで散歩に出かけた。空気が澄んでいて気持ちがよく、鳥の声が心地よかった。
-              </p>
-            </div>
-
-            <!-- カード2 -->
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
-              <div class="flex items-center mb-2">
-                <span class="text-3xl mr-2">📚</span>
-                <h2 class="text-xl font-semibold truncate">読書の時間</h2>
-              </div>
-              <p class="text-sm text-gray-500 mb-1">2025年5月24日</p>
-              <p class="text-gray-700 line-clamp-3">
-              最近読み始めた小説が面白くて、ついつい夜更かししてしまった。登場人物の心理描写がとても細かくて共感できる。
-              </p>
-            </div>
-
-            <!-- カード3 -->
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
-              <div class="flex items-center mb-2">
-                <span class="text-3xl mr-2">🍽️</span>
-                <h2 class="text-xl font-semibold truncate">夕食の記録</h2>
-              </div>
-              <p class="text-sm text-gray-500 mb-1">2025年5月23日</p>
-              <p class="text-gray-700 line-clamp-3">
-              今日は自炊に挑戦して、久しぶりにカレーを作ってみた。思ったよりもスパイスが効いていて、家族にも好評だった。
-              </p>
-            </div>
           </div>
         </main>
       </div>
     </div>
 
+    <div hx-trigger="load" hx-get="/html/dialog.html" hx-swap="outerHTML"></div>
     <!-- Tailwind Line Clamp Plugin (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/line-clamp@0.4.0"></script>
   <script src="https://unpkg.com/lucide@latest"></script>

@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 )
 
 // example関数はHTML文字列を返す
@@ -92,15 +93,21 @@ func main() {
 
 	// "/"および"/index.html"に対応
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/" || r.URL.Path == "/index.html" {
-			data, err := os.ReadFile("./index.html")
+		if r.URL.Path == "/" || strings.HasSuffix(r.URL.Path, ".html") {
+			p := "." + r.URL.Path // /index.html => ./index.html
+			if p == "./" {
+				p = "./index.html"
+			}
+			data, err := os.ReadFile(p)
 			if err != nil {
-				http.Error(w, "index.html not found", http.StatusNotFound)
+				http.Error(w, p+" not found", http.StatusNotFound)
 				return
 			}
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.Write(data)
 			return
+		} else {
+
 		}
 		// その他のパスは404
 		http.NotFound(w, r)

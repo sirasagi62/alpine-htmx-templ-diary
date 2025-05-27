@@ -1,0 +1,41 @@
+<dialog id="createModal" class="fixed inset-0 z-50 p-0 w-full max-w-xl m-auto bg-transparent flex items-center justify-center backdrop:bg-black/50">
+  <div class="bg-white p-6 rounded-lg shadow-xl relative w-full max-w-xl" x-data="{ emoji: '', title: '', content: '' }">
+    <!-- 閉じるボタン -->
+    <button @click="document.getElementById('createModal').close()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">
+      &times;
+    </button>
+
+    <h2 class="text-xl font-semibold mb-4">📝 新しい日記を作成</h2>
+
+    <!-- 絵文字 -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1">絵文字</label>
+      <input type="text" maxlength="2" class="w-16 text-center border rounded px-2 py-1 text-xl" x-model="emoji" />
+    </div>
+
+    <!-- タイトル -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1">タイトル</label>
+      <input type="text" class="w-full border rounded px-3 py-2" x-model="title" />
+    </div>
+
+    <!-- 本文 -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-1">本文</label>
+      <textarea rows="5" class="w-full border rounded px-3 py-2" x-model="content"></textarea>
+    </div>
+
+    <!-- 送信ボタン -->
+    <div class="flex justify-end">
+      <button
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        @click="
+          console.log({ emoji, title, content });
+          document.getElementById('createModal').close();
+        "
+      >
+        送信
+      </button>
+    </div>
+  </div>
+</dialog>
