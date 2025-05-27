@@ -55,8 +55,8 @@
       <!-- メインコンテンツ -->
       <div :class="open ? 'ml-64' : 'ml-0'" class="transition-all duration-300">
         <!-- トリガーボタン -->
-        <button @click="open = true" class="m-4 px-4 py-2 bg-blue-600 text-white rounded">
-          パネルを開く
+        <button @click="open = !open" class="m-4 px-4 py-2 bg-zinc-800 text-white rounded">
+          <i data-lucide="Menu"></i>
         </button>
 
         <main class="p-6">
@@ -109,7 +109,10 @@
 
     <!-- Tailwind Line Clamp Plugin (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/line-clamp@0.4.0"></script>
-
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
   </body>
 </html>
 

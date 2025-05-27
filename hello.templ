@@ -13,6 +13,7 @@ templ diaryCard(emoji string,title string,content string,date string,idx int) {
 		hx-trigger="click"
 		hx-get={path}
 		hx-target="#detail-panel"
+		@click="open=true"
 	>
 		<div class="flex items-center mb-2">
 		<span class="text-3xl mr-2">{emoji}</span>
