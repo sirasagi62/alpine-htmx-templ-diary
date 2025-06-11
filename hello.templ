@@ -6,44 +6,42 @@ templ hello(name string) {
 	<div>Hello, { name }</div>
 }
 
-templ diaryCard(emoji string,title string,content string,date string,idx int) {
-	{{path := fmt.Sprintf("/view/item?idx=%d",idx)}}
+templ diaryCard(emoji string, title string, content string, date string, idx int) {
+	{{ path := fmt.Sprintf("/view/item?idx=%d", idx) }}
 	<div
-	  class="bg-white rounded-lg shadow p-4 hover:shadow-md transition"
+		class="bg-white rounded-lg shadow p-4 hover:shadow-md transition"
 		hx-trigger="click"
-		hx-get={path}
+		hx-get={ path }
 		hx-target="#detail-panel"
 		@click="open=true"
 	>
 		<div class="flex items-center mb-2">
-		<span class="text-3xl mr-2">{emoji}</span>
-		<h2 class="text-xl font-semibold truncate">{title}</h2>
+			<span class="text-3xl mr-2">{ emoji }</span>
+			<h2 class="text-xl font-semibold truncate">{ title }</h2>
 		</div>
-		<p class="text-sm text-gray-500 mb-1">{date}</p>
+		<p class="text-sm text-gray-500 mb-1">{ date }</p>
 		<p class="text-gray-700 line-clamp-3">
-		{content}
-	</p>
-		</div>
+			{ content }
+		</p>
+	</div>
 }
 
 templ diaryCardList(diaries DiaryEntries) {
 	for idx,diary := range diaries {
-		@diaryCard(diary.Emoji,diary.Title,diary.Content,diary.Date,idx)
+		@diaryCard(diary.Emoji, diary.Title, diary.Content, diary.Date, idx)
 	}
 }
 
 templ diaryDetail(d DiaryEntry) {
 	<!-- サイドパネル内：選択された日記の詳細表示 -->
-		<div class="h-full flex flex-col overflow-hidden">
+	<div class="h-full flex flex-col overflow-hidden">
 		<div class="flex items-center mb-2">
-		<span class="text-3xl mr-2">{d.Emoji}</span>
-		<h2 class="text-xl font-bold text-gray-800 truncate">{d.Title}</h2>
+			<span class="text-3xl mr-2">{ d.Emoji }</span>
+			<h2 class="text-xl font-bold text-gray-800 truncate">{ d.Title }</h2>
 		</div>
-		<p class="text-sm text-gray-500 mb-4">{d.Date}</p>
-
+		<p class="text-sm text-gray-500 mb-4">{ d.Date }</p>
 		<div class="flex-1 overflow-y-auto pr-1 text-sm text-gray-700 space-y-2">
-		<p>{d.Content}</p>
+			<p>{ d.Content }</p>
 		</div>
-		</div>
-
+	</div>
 }
